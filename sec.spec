@@ -2,7 +2,7 @@ Name:           sec
 Version:        2.4.2
 Release:        %mkrel 1
 Summary:        SEC (simple event correlator)
-Group:          System Environment/Daemons
+Group:          System/Servers
 License:        GPL
 URL:            http://www.estpak.ee/~risto/sec/
 Source0:        http://prdownloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
