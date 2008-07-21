@@ -1,7 +1,7 @@
 Name:           sec
 Version:        2.4.2
-Release:        %mkrel 1
-Summary:        SEC (simple event correlator)
+Release:        %mkrel 2
+Summary:        Simple Event Correlator
 Group:          System/Servers
 License:        GPL
 URL:            http://www.estpak.ee/~risto/sec/
