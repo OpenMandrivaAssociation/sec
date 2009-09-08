@@ -1,6 +1,6 @@
 Name:           sec
 Version:        2.4.2
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Simple Event Correlator
 Group:          System/Servers
 License:        GPL
