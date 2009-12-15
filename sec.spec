@@ -1,5 +1,5 @@
 Name:           sec
-Version:        2.5.2
+Version:        2.5.3
 Release:        %mkrel 1
 Summary:        Simple Event Correlator
 Group:          System/Servers
