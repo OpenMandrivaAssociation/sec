@@ -1,6 +1,6 @@
 Name:           sec
-Version:        2.5.3
-Release:        %mkrel 2
+Version:        2.6.0
+Release:        %mkrel 1
 Summary:        Simple Event Correlator
 Group:          System/Servers
 License:        GPL
@@ -57,10 +57,12 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/logrotate.d
 install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig
 install -d -m 755 %{buildroot}%{_sysconfdir}/sec
 install -d -m 755 %{buildroot}%{_docdir}/%{name}/examples
+install -d -m 755 %{buildroot}%{_bindir}
+install -d -m 755 %{buildroot}%{_mandir}/man1
 
 # Install SEC and its associated files
-install -D -p -m 755 sec.pl     %{buildroot}%{_bindir}/sec
-install -D -p -m 644 sec.pl.man %{buildroot}%{_mandir}/man1/sec.1
+install -p -m 755 sec     %{buildroot}%{_bindir}/sec
+install -p -m 644 sec.man %{buildroot}%{_mandir}/man1/sec.1
 install -p -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/sec
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/sec
 install -p -m 755 %{SOURCE2} %{buildroot}%{_initrddir}/sec
