@@ -1,8 +1,8 @@
 Name:           sec
 Version:        2.6.0
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Simple Event Correlator
-Group:          System/Servers
+Group:          Monitoring
 License:        GPL
 URL:            http://www.estpak.ee/~risto/sec/
 Source0:        http://prdownloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
