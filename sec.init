@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# sec           This starts and stops SEC
+#
+# chkconfig:    - 26 74
+# description:  Simple Event Correlator script to filter log file entries
+# processname:  /usr/bin/sec
+# config:       /etc/sysconfig/sec
+# pidfile:      /var/run/sec.pid
+#
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Default to a clean return value
+RETVAL=0
+
+# Program we'll be executing
+EXEC='/usr/bin/sec'
+prog='sec'
+
+# Source the config
+SEC_ARGS="-detach -conf=/etc/sec/*.sec -input=/var/log/messages -log=/var/log/sec -intevents -pid=/var/run/sec.pid"
+[ -e /etc/sysconfig/sec ] && . /etc/sysconfig/sec
+
+# No options defined means that sec can't run
+[ -z "$SEC_ARGS" ] && exit 0
+
+# And away we go...
+
+start() {
+    for n in `seq 0 $((${#SEC_ARGS[*]} - 1))`; do
+        echo -n $"Starting $prog instance "$(($n + 1))": "
+        daemon $EXEC ${SEC_ARGS[$n]}
+        RETVAL=$?
+        [ $RETVAL -ne 0 ] && return $RETVAL
+    done
+    touch /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+reload() {
+    echo -n $"Reloading configuration: "
+    killproc $prog -HUP
+    RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+restart() {
+    stop
+    start
+}
+
+dump() {
+    echo -n $"Dumping state in /tmp/sec.dump: "
+    killproc $prog -USR1
+    RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+sec_status() {
+    status $prog
+}
+
+case "$1" in
+    start|stop|reload|restart|dump)
+        $1
+        ;;
+    status)
+        sec_status
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|reload|restart|dump|status}"
+        exit 2
+esac
+

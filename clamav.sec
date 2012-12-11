@@ -1,0 +1,8 @@
+#Detects Clamav syslogs and reports them in a general report
+
+type=Single
+ptype=RegExp
+pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+clamd\[\d+\]: .*amavis-200\d+.*: (.*) FOUND
+desc=$0
+action=add GENERAL_REPORT CLAMD: $2 on $1
+

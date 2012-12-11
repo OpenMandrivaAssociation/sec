@@ -1,8 +1,8 @@
 Name:           sec
 Version:        2.6.0
-Release:        %mkrel 2
+Release:        %mkrel 1
 Summary:        Simple Event Correlator
-Group:          Monitoring
+Group:          System/Servers
 License:        GPL
 URL:            http://www.estpak.ee/~risto/sec/
 Source0:        http://prdownloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
@@ -116,3 +116,34 @@ rm -rf %{buildroot}
 %{_initrddir}/sec
 %{_mandir}/man1/*
 
+
+
+%changelog
+* Thu Jun 16 2011 Guillaume Rousse <guillomovitch@mandriva.org> 2.6.0-1mdv2011.0
++ Revision: 685580
+- new version
+
+* Tue Dec 07 2010 Oden Eriksson <oeriksson@mandriva.com> 2.5.3-2mdv2011.0
++ Revision: 614832
+- the mass rebuild of 2010.1 packages
+
+* Tue Dec 15 2009 Guillaume Rousse <guillomovitch@mandriva.org> 2.5.3-1mdv2010.1
++ Revision: 478980
+- update to new version 2.5.3
+
+* Sat Nov 07 2009 Guillaume Rousse <guillomovitch@mandriva.org> 2.5.2-1mdv2010.1
++ Revision: 462213
+- update to new version 2.5.2
+
+* Tue Sep 08 2009 Thierry Vignaud <tv@mandriva.org> 2.4.2-3mdv2010.0
++ Revision: 433687
+- rebuild
+- fix summary
+
+* Fri Jul 04 2008 Guillaume Rousse <guillomovitch@mandriva.org> 2.4.2-1mdv2009.0
++ Revision: 231909
+- import sec
+
+
+* Thu Jun 19 2008 Guillaume Rousse <guillomovitch@mandriva.org> 2.4.2-1mdv2009.0
+- first mdv package, stolen from fedora

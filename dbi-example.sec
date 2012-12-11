@@ -1,0 +1,25 @@
+# to use perl packages, like DBI, you need to start SEC with the *-intevents* flag.
+# this rule gets run against the messages file to log events to a central DB.
+# not so much for the rule itself, but an example using DBI:
+# Submitted by Jason Chambers
+
+type=Single
+ptype=RegExp
+pattern=^(\S+\s+\S+\s+\S+)\s+(\S+)\s+(\S+:)\s+(\S+\s+\S+\s+\S+\s+)?(\S+)\s+:\s+\S+\s+;\s+(\S+)\s+;\s+(\S+)\s+;\s+(.*)
+desc=update db log
+action=assign %H $2;\
+      assign %Z $5;\
+      assign %U $6;\
+      assign %R $7;\
+      assign %C $8;\
+      assign %N %u;\
+      assign %I 0;\
+      eval   %I (require DBI);\
+      eval   %D (exit(1) unless %I;\
+                  $COMMAND = "%C";\
+                            my $DBH = DBI->connect('DBI:mysql:/DBname/:/DBhost/', '/DBuser/', '/DBpass/');\
+                            my $SQL    = " SQL statement";\
+                            $DBH->do($SQL);\
+                 );
+
+
