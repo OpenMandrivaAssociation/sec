@@ -1,4 +1,11 @@
-#Labrea tarpit events
+#############################################################################
+# Labrea tarpit events
+#
+# Copyright (C) 2003-2009 Matt Jonkman
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
+#############################################################################
 
 type=Single
 ptype=RegExp
@@ -25,5 +32,5 @@ type=Calendar
 time=0 8,12,20 * * *
 desc=Sending tarpit report...
 action=report TARPIT_REPORT \
-       /usr/bin/mail -s 'Tarpits: Tarpit Victim report' alerts@yourdomain.com; \
+       /usr/bin/mail -s 'Tarpits: Tarpit Victim report' alerts@example.com; \
        delete TARPIT_REPORT

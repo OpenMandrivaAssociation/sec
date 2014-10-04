@@ -1,19 +1,23 @@
 ################################################################
 #          Sample SEC ruleset for HP OpenView ITO
+#
+# Copyright (C) 2003-2010 Risto Vaarandi
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
 ################################################################
 
 # process Cisco linkDown/linkUp trap events received from 
 # HP OpenView ITO trap template through itostream plugin
-# Submitted by Risto Vaarandi
 
 type=PairWithWindow
 ptype=RegExp
-pattern=node=(\S+).*msg_text=cisco linkdown trap on interface (\S+)
+pattern=node=([\w.-]+) .*msg_text=cisco linkdown trap on interface ([\w-]+)\b
 desc=CISCO $1 INTERFACE $2 DOWN
 action=event %s; 
 continue2=TakeNext
 ptype2=RegExp
-pattern2=node=$1.*msg_text=cisco linkup trap on interface $2
+pattern2=node=$1 .*msg_text=cisco linkup trap on interface $2\b
 desc2=CISCO %1 INTERFACE %2 BOUNCE
 action2=event %s; 
 window=20
@@ -21,25 +25,25 @@ window=20
 type=SingleWithSuppress
 continue=TakeNext
 ptype=RegExp
-pattern=CISCO (\S+) INTERFACE (\S+) DOWN
+pattern=CISCO ([\w.-]+) INTERFACE ([\w-]+) DOWN
 desc=cisco $1 interface $2 down
 action=reset +1 %s
 window=60
 
 type=Pair
 ptype=RegExp
-pattern=CISCO (\S+) INTERFACE (\S+) DOWN
+pattern=CISCO ([\w.-]+) INTERFACE ([\w-]+) DOWN
 desc=cisco $1 interface $2 down
 action=shellcmd /home/opc_op/cisco_msg.sh $1 $2 major down
 ptype2=RegExp
-pattern2=node=$1.*msg_text=cisco linkup trap on interface $2
+pattern2=node=$1 .*msg_text=cisco linkup trap on interface $2\b
 desc2=cisco %1 interface %2 up
 action2=shellcmd /home/opc_op/cisco_msg.sh %1 %2 normal up
 window=86400
 
 type=SingleWith2Thresholds
 ptype=RegExp
-pattern=CISCO (\S+) INTERFACE (\S+) BOUNCE
+pattern=CISCO ([\w.-]+) INTERFACE ([\w-]+) BOUNCE
 desc=cisco $1 interface $2 is unstable
 action=shellcmd /home/opc_op/cisco_msg.sh $1 $2 major unstable
 window=3600
@@ -75,7 +79,7 @@ thresh2=0
 
 type=SingleWithScript
 ptype=RegExp
-pattern=node=(\S+).*msg_text=APC ups not online
+pattern=node=([\w.-]+) .*msg_text=APC ups not online
 script=/home/opc_op/check_apc.sh $1
 desc=APC ups is not online!
 action=shellcmd /opt/OV/bin/OpC/opcmsg node=$1 app=APC obj=state \

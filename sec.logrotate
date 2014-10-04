@@ -3,6 +3,6 @@
     notifempty
     sharedscripts
     postrotate
-        /sbin/service sec reload 2> /dev/null > /dev/null || true
+        /sbin/service sec reload >/dev/null 2>&1 || true
     endscript
 }

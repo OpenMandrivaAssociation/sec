@@ -1,4 +1,11 @@
-#VTUN Events
+#############################################################################
+# VTUN events
+#
+# Copyright (C) 2003-2009 Matt Jonkman
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
+#############################################################################
 
 type=Single
 ptype=RegExp
@@ -57,15 +64,4 @@ ptype=RegExp
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+vtund\[\d+\]: Session (/S+) closed
 desc=$0
 action=add GENERAL_REPORT %t: VTUN Session $2 Closed on $1
-
-
-
-#Send 12 hours vtun report
-
-type=Calendar
-time=0 0,12 * * *
-desc=Sending vtun report...
-action=report VTUN_REPORT \
-       /usr/bin/mail -s 'VTUN: VTUN Report' alerts@yourdomain.com; \
-       delete VTUN_REPORT0
 

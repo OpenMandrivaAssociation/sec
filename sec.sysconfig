@@ -1,9 +1,0 @@
-# sec service configuration
-
-SEC_ARGS="-detach -conf=/etc/sec/*.sec -input=/var/log/messages -log=/var/log/sec -intevents -pid=/var/run/sec.pid"
-
-# For Multiple instances of SEC, use something like:
-#
-# SEC_ARGS[0]="-detach -conf=/etc/sec/sys/*.sec -input=/var/log/messages -log=/var/log/sec -intevents -pid=/var/run/sec.sys.pid"
-#
-# SEC_ARGS[1]="-detach -conf=/etc/sec/mail/*.sec -input=/var/log/messages -log=/var/log/sec -intevents -pid=/var/run/sec.mail.pid"

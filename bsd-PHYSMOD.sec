@@ -1,9 +1,13 @@
 #
-# from http://sixshooter.v6.thrupoint.net/SEC-examples/article.html
-#
 # PHYSMOD.conf - Events concerning physical modifications
 #                to the system.
 #
+# from http://sixshooter.v6.thrupoint.net/SEC-examples/article.html
+#
+# Copyright (C) 2003-2009 Jim Brown
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
 #
 #Logs involving physical modifications (PHYSMOD)
 #------------------------------------------------

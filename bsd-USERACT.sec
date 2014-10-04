@@ -1,7 +1,12 @@
 #
+# Events concerning user activities.
+#
 # From http://sixshooter.v6.thrupoint.net/SEC-examples/article.html
 #
-# Events concerning user activities.
+# Copyright (C) 2003-2009 Jim Brown
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
 #
 #Logs involving logins, change of UID and privilege escalations (USERACT)
 #-------------------------------------------------------------------------

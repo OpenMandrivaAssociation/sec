@@ -1,8 +1,13 @@
 #
-# from http://sixshooter.v6.thrupoint.net/SEC-examples/article.html
-#
 # SEC rules to pick up disruptive monitoring
 # events.
+#
+# from http://sixshooter.v6.thrupoint.net/SEC-examples/article.html
+#
+# Copyright (C) 2003-2009 Jim Brown
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
 #
 #Logs involving syslogd disabled or unusual promiscuous mode (MONITOR)
 #----------------------------------------------------------------------
@@ -50,5 +55,5 @@ type=Single
 ptype=RegExp
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+kernel: swap_pager_getswapspace\(\S\): .*
 desc=$0
-action=pipe '$1 GET SWAP FAILURE: %s' /usr/bin/mail -s "SWAP SPACE FAIL on $1" alerts@yourdomain.com
+action=pipe '$1 GET SWAP FAILURE: %s' /usr/bin/mail -s "SWAP SPACE FAIL on $1" alerts@example.com
 

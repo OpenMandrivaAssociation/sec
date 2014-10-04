@@ -1,5 +1,10 @@
 ####################################################################
 #                SEC ruleset for Monitoring Keywords
+#
+# Copyright (C) 2003-2009 Chris Sawall
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
 ####################################################################
 
 # This particular ruleset was designed to monitor PIX syslog traffic
@@ -41,7 +46,7 @@ type=Single
 ptype=PerlFunc
 pattern=sub {($_[0] =~ /($list)/) }
 desc=Inappropriate word in URL
-action=create ssh_$1; add ssh_$1 %t; add ssh_$1 $0; report ssh_$1 /bin/mail -s "%s" email01@domain.com; delete ssh_$1
+action=create ssh_$1; add ssh_$1 %t; add ssh_$1 $0; report ssh_$1 /bin/mail -s "%s" email01@example.com; delete ssh_$1
 
 #
 # Examples of "watch4badwords" and "watch4excludes"

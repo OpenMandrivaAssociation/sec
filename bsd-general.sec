@@ -1,5 +1,10 @@
 # General log events, unix systems. From various sources
 #
+# Copyright (C) 2003-2009 Jim Brown
+# This is free software. You may redistribute copies of it under the terms of 
+# the GNU General Public License version 2.
+# There is NO WARRANTY, to the extent permitted by law.
+#
 #   Bad su 
 # ----------- 
 #
@@ -7,13 +12,13 @@ type=Single
 ptype=RegExp 
 desc=$0 
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+su: BAD SU (\S+) to (\S+) on (\S+)
-action=pipe '$2 failed SU to $3 on $1 at %t' /usr/bin/mail -s "USER: $2 Failed SU on $1" alerts@email.com
+action=pipe '$2 failed SU to $3 on $1 at %t' /usr/bin/mail -s "USER: $2 Failed SU on $1" alerts@example.com
 
 type=Single
 ptype=RegExp
 desc=$0
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+su: BAD SU (\S+) to (\S+) on (\S+)
-action=pipe '$2 failed SU to $3 on $1 at %t' /usr/bin/mail -s "USER: $2 Failed SU on $1" alerts@email.com 
+action=pipe '$2 failed SU to $3 on $1 at %t' /usr/bin/mail -s "USER: $2 Failed SU on $1" alerts@example.com 
 
 
 # MONITOR.conf - SEC rules to pick up disruptive monitoring
@@ -94,7 +99,7 @@ action=write - USERACT: $1 sshd accepted login, text: $2 at %t
 #ptype=RegExp
 #pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+sshd\[\d+\]: error: PAM: authentication error for (/S+) from (/S+)
 #desc=$0
-#action=pipe 'SSHD: 1 $1 2 $2 3 $3 to 4 $4 on 5 $5 at %t' /usr/bin/mail -s "SSHD: $1 $2 $3 to $4 on $5 at %t'
+#action=pipe 'SSHD: 1 $1 2 $2 3 $3 to 4 $4 on 5 $5 at %t' /usr/bin/mail -s "SSHD: $1 $2 $3 to $4 on $5 at %t' alerts@example.com
 
 #
 # su  bad
@@ -104,7 +109,7 @@ type=Single
 ptype=RegExp
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+su: (BAD SU) (\S+) to (\S+) on (\S+)
 desc=$0
-action=pipe 'USER: $1 SU: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t'
+action=pipe 'USER: $1 SU: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t' alerts@example.com
 
 #Nov 10 19:40:03 foohost su: jpb to root on /dev/ttyp0
 #Nov 18 09:37:38 foohost su: BAD SU jpb to root on /dev/ttyp3
@@ -118,7 +123,7 @@ type=Single
 ptype=RegExp
 pattern=\S+\s+\d+\s+\S+\s+(\S+)\s+su: (\S+) to root on (\S+)
 desc=$0
-action=pipe 'USER: $1 GOOD SU: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t'   
+action=pipe 'USER: $1 GOOD SU: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t' alerts@example.com  
 #action=write - USERACT: $1 su: $2 to ROOT on $4  at %t
 
 #
@@ -158,7 +163,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+sshd\[\d+\]: (fatal|Bad)(.*)
 desc=$0
-action=pipe 'USER: $1 su: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t'   
+action=pipe 'USER: $1 su: $2 $3 to $4 on $5 at %t' /usr/bin/mail -s "USERACT: $1 su: $2 $3 to $4 on $5 at %t' alerts@example.com   
 #action=event 0 $1 USERACT:YELLOW  sshd $2 problem, text: $3 at %t
 
 #
@@ -169,7 +174,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+(sshd|login): (.*?FAILURE.)(.*?ON) (.*)
 desc=$0
-action=pipe 'USER: $1: Login Failure $2 on $4 at %t' /usr/bin/mail -s "USER: $1 su: $2 $3 to $4 on $5 at %t'   
+action=pipe 'USER: $1: Login Failure $2 on $4 at %t' /usr/bin/mail -s "USER: $1 su: $2 $3 to $4 on $5 at %t' alerts@example.com   
 #action=event 0 $1 USERACT:YELLOW  login $2 on $4 at %t
 
 
@@ -190,7 +195,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+named\[\d+\]: client (\S+): request has invalid signature:(.*)
 desc=$0
-action=pipe 'NET: $1 dyndns attempt from $2' /usr/bin/mail -s "NET: $1 dyndns attempt from $2, text: $3 at %t"
+action=pipe 'NET: $1 dyndns attempt from $2' /usr/bin/mail -s "NET: $1 dyndns attempt from $2, text: $3 at %t" alerts@example.com
 
 #
 # MAC address moved
@@ -200,7 +205,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+/kernel: arp: (\S+) moved from (\S+) to (\S+) on (\S+)
 desc=$0
-action=pipe 'NET: $1 arp moved on $2' /usr/bin/mail -s "NET: $1 arp moved on $2 from: $3 to $4 on $5 at %t"
+action=pipe 'NET: $1 arp moved on $2' /usr/bin/mail -s "NET: $1 arp moved on $2 from: $3 to $4 on $5 at %t" alerts@example.com
 
 #
 # DoS RST rate limit
@@ -210,7 +215,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+/kernel: Limiting closed port RST response from (\d+) to (\d+)
 desc=$0
-action=pipe 'NET: $1 RST limit enforced: $2 to $3 at %t' /usr/bin/mail =s "NET: $1 RST limit enforced: $2 to $3"
+action=pipe 'NET: $1 RST limit enforced: $2 to $3 at %t' /usr/bin/mail =s "NET: $1 RST limit enforced: $2 to $3" alerts@example.com
 
 
 
@@ -230,7 +235,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+ntpd\[\d+\]: ntpd exiting on signal (\d+)
 desc=$0
-action=pipe 'CRASH: $1 ntpd crashed on signal $2 at %t' /usr/bin/mail -s "CRASH: $1 ntpd crashed"
+action=pipe 'CRASH: $1 ntpd crashed on signal $2 at %t' /usr/bin/mail -s "CRASH: $1 ntpd crashed" alerts@example.com
 
 #
 # Process crash
@@ -240,7 +245,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+/kernel: pid \d+ \(\S+\), uid (\d+): exited on signal (\d+)
 desc=$0
-action=pipe 'CRASH: $1 $2 crashed on signal $4, uid $3 at %t' /usr/bin/mail -s "CRASH: $1 $2 crashed"
+action=pipe 'CRASH: $1 $2 crashed on signal $4, uid $3 at %t' /usr/bin/mail -s "CRASH: $1 $2 crashed" alerts@example.com
 
 
 
@@ -258,7 +263,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+(thttpd)\[(\d+)\]:(.*) 
 desc=$0
-action=pipe 'SUSPROC: $1 suspicious process  $2 pid $3, text: $4 at %t' /usr/bin/mail -s "SUSPROC: $1 suspicious process  $2"
+action=pipe 'SUSPROC: $1 suspicious process  $2 pid $3, text: $4 at %t' /usr/bin/mail -s "SUSPROC: $1 suspicious process  $2" alerts@example.com
 
 
 
@@ -278,7 +283,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+reboot: rebooted by (\S+)
 desc=$0
-action=pipe 'REBOOT: $1 rebooted by $2' /usr/bin/mail -s "REBOOT: $1 rebooted by $2"
+action=pipe 'REBOOT: $1 rebooted by $2' /usr/bin/mail -s "REBOOT: $1 rebooted by $2" alerts@example.com
 
 #
 # Halt message
@@ -288,7 +293,7 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+halt: halted by (\S+)
 desc=$0
-action=pipe 'HALT: $1 halted by $2' /usr/bin/mail -s "HALT: $1 halted by $2"
+action=pipe 'HALT: $1 halted by $2' /usr/bin/mail -s "HALT: $1 halted by $2" alerts@example.com
 
 #
 # Restart message
@@ -298,5 +303,5 @@ type=Single
 ptype=RegExp
 pattern=^\S+\s+\d+\s+\S+\s+(\S+)\s+/kernel: Copyright \(c\) (\S+) The FreeBSD Project
 desc=$0
-action=pipe 'RESTART: $1 restart message at %t' /usr/bin/mail -s "RESTART: $1 restart message"
+action=pipe 'RESTART: $1 restart message at %t' /usr/bin/mail -s "RESTART: $1 restart message" alerts@example.com
 

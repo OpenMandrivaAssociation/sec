@@ -1,149 +1,96 @@
 Name:           sec
-Version:        2.6.0
-Release:        %mkrel 1
-Summary:        Simple Event Correlator
+Version:        2.7.6
+Release:        1
+Summary:        Simple Event Correlator script to filter log file entries
 Group:          System/Servers
-License:        GPL
-URL:            http://www.estpak.ee/~risto/sec/
-Source0:        http://prdownloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
-Source1:        sec.sysconfig
-Source2:        sec.init
+License:        GPLv2+
+URL:            http://simple-evcorr.sourceforge.net/
+Source0:        http://downloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
+Source1:        sec.service
 Source3:        sec.logrotate
-Source101:      http://www.estpak.ee/~risto/sec/examples/syslog-ng.txt
-Source102:      001_init.sec
-Source103:      http://www.bleedingsnort.com/sec/amavisd.sec
-Source104:      http://www.bleedingsnort.com/sec/bsd-MONITOR.sec
-Source105:      http://www.bleedingsnort.com/sec/bsd-PHYSMOD.sec
-Source106:      http://www.bleedingsnort.com/sec/bsd-USERACT.sec
-Source107:      http://www.bleedingsnort.com/sec/clamav.sec
-Source108:      http://www.bleedingsnort.com/sec/cvs.sec
-Source109:      http://www.bleedingsnort.com/sec/dameware.sec
-Source110:      http://www.bleedingsnort.com/sec/dbi-example.sec
-Source111:      http://www.bleedingsnort.com/sec/general.sec
-Source112:      http://www.bleedingsnort.com/sec/hp-openview.sec
-Source113:      http://www.bleedingsnort.com/sec/labrea.sec
-Source114:      http://www.bleedingsnort.com/sec/mpd.sec
-Source115:      http://www.bleedingsnort.com/sec/pix-security.sec
-Source116:      http://www.bleedingsnort.com/sec/pix-url.sec
-Source117:      http://www.bleedingsnort.com/sec/portscan.sec
-Source118:      http://www.bleedingsnort.com/sec/snort.sec
-Source119:      http://www.bleedingsnort.com/sec/snortsam.sec
-Source120:      http://www.bleedingsnort.com/sec/ssh-brute.sec
-Source121:      http://www.bleedingsnort.com/sec/ssh.sec
-Source122:      http://www.bleedingsnort.com/sec/vtund.sec
-Source123:      http://www.bleedingsnort.com/sec/windows.sec
-BuildArch:		noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}
+# Example files and configuration info
+Source4:        conf.README
+Source5:        http://simple-evcorr.sourceforge.net/rulesets/amavisd.sec
+Source6:        http://simple-evcorr.sourceforge.net/rulesets/bsd-MONITOR.sec
+Source7:        http://simple-evcorr.sourceforge.net/rulesets/bsd-PHYSMOD.sec
+Source8:        http://simple-evcorr.sourceforge.net/rulesets/bsd-USERACT.sec
+Source9:        http://simple-evcorr.sourceforge.net/rulesets/bsd-general.sec
+Source10:       http://simple-evcorr.sourceforge.net/rulesets/bsd-mpd.sec
+Source11:       http://simple-evcorr.sourceforge.net/rulesets/cisco-syslog.sec
+Source12:       http://simple-evcorr.sourceforge.net/rulesets/cvs.sec
+Source13:       http://simple-evcorr.sourceforge.net/rulesets/dameware.sec
+Source14:       http://simple-evcorr.sourceforge.net/rulesets/hp-openview.sec
+Source15:       http://simple-evcorr.sourceforge.net/rulesets/labrea.sec
+Source16:       http://simple-evcorr.sourceforge.net/rulesets/pix-general.sec
+Source17:       http://simple-evcorr.sourceforge.net/rulesets/pix-security.sec
+Source18:       http://simple-evcorr.sourceforge.net/rulesets/pix-url.sec
+Source19:       http://simple-evcorr.sourceforge.net/rulesets/portscan.sec
+Source20:       http://simple-evcorr.sourceforge.net/rulesets/snort.sec
+Source21:       http://simple-evcorr.sourceforge.net/rulesets/snortsam.sec
+Source22:       http://simple-evcorr.sourceforge.net/rulesets/ssh-brute.sec
+Source23:       http://simple-evcorr.sourceforge.net/rulesets/ssh.sec
+Source24:       http://simple-evcorr.sourceforge.net/rulesets/vtund.sec
+Source25:       http://simple-evcorr.sourceforge.net/rulesets/windows.sec
+BuildArch:      noarch
+
+BuildRequires:  systemd
+
+Requires:       logrotate
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
-SEC is an open source and platform independent event correlation tool that
-was designed to fill the gap between commercial event correlation systems and
-homegrown solutions that usually comprise a few simple shell scripts.
-SEC accepts input from regular files, named pipes, and standard input, and can
-thus be employed as an event correlator for any application that is able to
-write its output events to a file stream.
+SEC is a simple event correlation tool that reads lines from files, named
+pipes, or standard input, and matches the lines with regular expressions,
+Perl subroutines, and other patterns for recognizing input events.
+Events are then correlated according to the rules in configuration files,
+producing output events by executing user-specified shell commands, by
+writing messages to pipes or files, etc.
 
 %prep
 %setup -q
 
+%build
+
 %install
-rm -rf %{buildroot}
-
-# Create the directories we'll need
-install -d -m 755 %{buildroot}%{_initrddir}
-install -d -m 755 %{buildroot}%{_localstatedir}/log
-install -d -m 755 %{buildroot}%{_localstatedir}/run
-install -d -m 755 %{buildroot}%{_sysconfdir}/logrotate.d
-install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig
-install -d -m 755 %{buildroot}%{_sysconfdir}/sec
-install -d -m 755 %{buildroot}%{_docdir}/%{name}/examples
-install -d -m 755 %{buildroot}%{_bindir}
-install -d -m 755 %{buildroot}%{_mandir}/man1
-
 # Install SEC and its associated files
-install -p -m 755 sec     %{buildroot}%{_bindir}/sec
-install -p -m 644 sec.man %{buildroot}%{_mandir}/man1/sec.1
-install -p -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/sec
-install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/sec
-install -p -m 755 %{SOURCE2} %{buildroot}%{_initrddir}/sec
+install -D -m 0755 -p sec        %{buildroot}%{_bindir}/sec
+install -D -m 0644 -p sec.man    %{buildroot}%{_mandir}/man1/sec.1
+install -D -m 0644 -p %{SOURCE1} %{buildroot}%{_unitdir}/sec.service
+install -D -m 0644 -p %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/sec
 
-# Install the example config files
-install -m 644 ChangeLog COPYING README \
-        %{buildroot}%{_docdir}/%{name}
-install -p -m 644 %{SOURCE101} \
-        %{buildroot}%{_docdir}/%{name}/examples/syslog-ng.sec
-install -p -m 644 %{SOURCE102}  \
-                  %{SOURCE103}  \
-                  %{SOURCE104}  \
-                  %{SOURCE105}  \
-                  %{SOURCE106}  \
-                  %{SOURCE107}  \
-                  %{SOURCE108}  \
-                  %{SOURCE109}  \
-                  %{SOURCE110}  \
-                  %{SOURCE111}  \
-                  %{SOURCE112}  \
-                  %{SOURCE113}  \
-                  %{SOURCE114}  \
-                  %{SOURCE115}  \
-                  %{SOURCE116}  \
-                  %{SOURCE117}  \
-                  %{SOURCE118}  \
-                  %{SOURCE119}  \
-                  %{SOURCE120}  \
-                  %{SOURCE121}  \
-                  %{SOURCE122}  \
-                  %{SOURCE123}  \
-        %{buildroot}%{_docdir}/%{name}/examples/
+# Install the example config files and readme
+install -D -m 0644 -p %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}/README
+install -d -m 0755  examples
+install -m 0644 -p %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} \
+                   %{SOURCE9} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
+                   %{SOURCE13} %{SOURCE14} %{SOURCE15} %{SOURCE16} \
+                   %{SOURCE17} %{SOURCE18} %{SOURCE19} %{SOURCE20} \
+                   %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} \
+                   %{SOURCE25} examples/
+
+# Remove executable bits because these files get packed as docs
+chmod 0644 contrib/convert.pl contrib/swatch2sec.pl
 
 %post
-%_post_service %{name}
+%systemd_post sec.service
 
 %preun
-%_preun_service %{name}
+%systemd_preun sec.service
+
+%postun
+%systemd_postun_with_restart sec.service
 
 %clean
-rm -rf %{buildroot}
 
 %files
-
-%defattr(-,root,root)
-%{_docdir}/%{name}
-%config(noreplace) %{_sysconfdir}/sysconfig/sec
+%defattr(-,root,root,-)
+%doc ChangeLog COPYING README contrib/convert.pl contrib/itostream.c contrib/swatch2sec.pl examples
+%config(noreplace) %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/sec
-%{_sysconfdir}/%{name}
 %{_bindir}/sec
-%{_initrddir}/sec
-%{_mandir}/man1/*
+%{_mandir}/man1/sec.1*
+%{_unitdir}/sec.service
 
-
-
-%changelog
-* Thu Jun 16 2011 Guillaume Rousse <guillomovitch@mandriva.org> 2.6.0-1mdv2011.0
-+ Revision: 685580
-- new version
-
-* Tue Dec 07 2010 Oden Eriksson <oeriksson@mandriva.com> 2.5.3-2mdv2011.0
-+ Revision: 614832
-- the mass rebuild of 2010.1 packages
-
-* Tue Dec 15 2009 Guillaume Rousse <guillomovitch@mandriva.org> 2.5.3-1mdv2010.1
-+ Revision: 478980
-- update to new version 2.5.3
-
-* Sat Nov 07 2009 Guillaume Rousse <guillomovitch@mandriva.org> 2.5.2-1mdv2010.1
-+ Revision: 462213
-- update to new version 2.5.2
-
-* Tue Sep 08 2009 Thierry Vignaud <tv@mandriva.org> 2.4.2-3mdv2010.0
-+ Revision: 433687
-- rebuild
-- fix summary
-
-* Fri Jul 04 2008 Guillaume Rousse <guillomovitch@mandriva.org> 2.4.2-1mdv2009.0
-+ Revision: 231909
-- import sec
-
-
-* Thu Jun 19 2008 Guillaume Rousse <guillomovitch@mandriva.org> 2.4.2-1mdv2009.0
-- first mdv package, stolen from fedora
