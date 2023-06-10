@@ -1,6 +1,6 @@
 Name:           sec
-Version:	2.8.2
-Release:	2
+Version:	2.9.2
+Release:	1
 Summary:        Simple Event Correlator script to filter log file entries
 Group:          System/Servers
 License:        GPLv2+
