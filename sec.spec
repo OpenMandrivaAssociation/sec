@@ -4,7 +4,7 @@ Release:	1
 Summary:        Simple Event Correlator script to filter log file entries
 Group:          System/Servers
 License:        GPLv2+
-URL:            http://simple-evcorr.sourceforge.net/
+URL:            https://simple-evcorr.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/simple-evcorr/%{name}-%{version}.tar.gz
 Source1:        sec.service
 Source3:        sec.logrotate
