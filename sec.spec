@@ -1,5 +1,5 @@
 Name:           sec
-Version:	2.9.3
+Version:	2.9.4
 Release:	1
 Summary:        Simple Event Correlator script to filter log file entries
 Group:          System/Servers

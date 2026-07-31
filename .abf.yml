@@ -1,2 +1,23 @@
 sources:
-  sec-2.9.3.tar.gz: 77f3a86eb7e8d02f92bda2d359ec1143f934325d
+  amavisd.sec: e7590246903faa2887191d55907e8ec93ed7939b
+  bsd-MONITOR.sec: 05f1bb36f5fa6376425b41f0cf35f4ba132c168f
+  bsd-PHYSMOD.sec: d9e60cfe218ed0d9447c38fcfe768fd03472247c
+  bsd-USERACT.sec: 929ced9f164d1ed92216b6667f42c576640d22cb
+  bsd-general.sec: e6127f0be90048c4ba3aabbca64414ddc6e1e46e
+  bsd-mpd.sec: 32ab84d069ae7e9cb33819f6dcae9db12ba426e7
+  cisco-syslog.sec: 006329d065be287266208b0dcf71c82bb7a009c8
+  cvs.sec: cac965c09e2bf2866683f1a037e73df363800658
+  dameware.sec: 5a963a83b59c1096999386bca12b603078012308
+  hp-openview.sec: 7361a421842f018a6f1fbf74a983c3ee6cd54a7b
+  labrea.sec: f27427376dfe171e98a3879b1f99d8f661833a9a
+  pix-general.sec: 58b78e67ca252efe7620d3c4ea5d0656b21a1dcc
+  pix-security.sec: 7a89704252d313bc6e8c8cbe2c523c3d54f2e09f
+  pix-url.sec: dbf9ed7d6b6b38c351999069f0f70fe4ebb522e4
+  portscan.sec: 54cbaf82869e0f3abbfd03c414350339bd4338a3
+  sec-2.9.4.tar.gz: 000a0a92cdfdfc5e76f7d3d82c8b64a13f0a3d6c
+  snort.sec: 34fe4abdbe98ca376be79904224f564702bf3f6a
+  snortsam.sec: d49c26ad7bffde28bb3698a6a2bebb011b6c2b48
+  ssh-brute.sec: b3cc52a1ef0e172a890cfe3a01b86c872184d119
+  ssh.sec: 8dfccef0abbc90ffbe358add72d40dcbf4fe3a73
+  vtund.sec: d9f53e8a6037eafd628e9e556fbaa0349d23391e
+  windows.sec: d4ddee58da16cde979f19c2a83eabae1867935d9
